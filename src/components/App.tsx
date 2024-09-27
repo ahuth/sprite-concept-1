@@ -93,7 +93,9 @@ export default function App() {
       // Move sprite based on direction
       xRef.current += direction * 2;
       if (xRef.current > canvas.width) {
-        xRef.current = -spriteWidth;
+        // +10 is a hack needed to prevent an infinte loop when the sprite moves off the right side
+        // of the canvas. Not sure what's happening, but there's definitely a bug here.
+        xRef.current = -spriteWidth + 10;
       } else if (xRef.current < -spriteWidth) {
         xRef.current = canvas.width;
       }
