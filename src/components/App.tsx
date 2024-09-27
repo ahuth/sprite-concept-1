@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {useEffect, useRef, useState} from 'react';
 import spriteSheetUrl from '../catspritesx4.gif';
 
@@ -114,10 +115,37 @@ export default function App() {
 
   return (
     <div className="p-8">
-      <canvas
-        className="mx-auto h-full max-h-[300px] w-full max-w-[400px]"
-        ref={canvasRef}
-      />
+      <div className="flex">
+        <button
+          className={clsx(
+            'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
+            direction === -1 && 'bg-gray-400',
+          )}
+          onMouseDown={() => setDirection(-1)}
+          onMouseUp={() => setDirection(0)}
+          onTouchStart={() => setDirection(-1)}
+          onTouchEnd={() => setDirection(0)}
+        >
+          ←
+        </button>
+        <canvas
+          className="mx-auto h-full max-h-[300px] w-full max-w-[400px]"
+          ref={canvasRef}
+        />
+        <button
+          className={clsx(
+            'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
+            direction === 1 && 'bg-gray-400',
+          )}
+          onMouseDown={() => setDirection(1)}
+          onMouseUp={() => setDirection(0)}
+          onTouchStart={() => setDirection(1)}
+          onTouchEnd={() => setDirection(0)}
+        >
+          →
+        </button>
+      </div>
+      <p className="mt-4 text-center">Use the arrow keys or buttons</p>
     </div>
   );
 }
