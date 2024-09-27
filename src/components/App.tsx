@@ -9,26 +9,61 @@ export default function App() {
     const ctx = canvas.getContext('2d')!;
 
     // Sprite properties
-    const spriteWidth = 64;
+    const spriteWidth = 87;
     const spriteHeight = 64;
+    const numFrames = 6;
+    const animationFramesBetweenSpriteFrame = 10;
+    let frameX = 0;
+    const frameY = 1;
+    let gameFrame = 0;
 
+    // Sprite position
+    let x = 0;
+    const y = canvas.height - spriteHeight;
+
+    // Load sprite image
     const spriteImage = new Image();
     spriteImage.src = spriteSheetUrl;
 
-    spriteImage.onload = () => {
+    function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Update sprite frame
+      if (gameFrame % animationFramesBetweenSpriteFrame === 0) {
+        frameX = (frameX + 1) % numFrames;
+      }
+
+      // Draw sprite
       ctx.drawImage(
         spriteImage,
-        0,
-        0,
+        frameX * spriteWidth,
+        frameY * spriteHeight,
         spriteWidth,
         spriteHeight,
-        0,
-        0,
+        x,
+        y,
         spriteWidth,
         spriteHeight,
       );
+
+      // Move sprite
+      x += 2;
+      if (x > canvas.width) {
+        x = -spriteWidth;
+      }
+
+      gameFrame++;
+      requestAnimationFrame(animate);
+    }
+
+    let animationId = -1;
+
+    spriteImage.onload = function () {
+      animationId = requestAnimationFrame(animate);
+    };
+
+    return () => {
+      cancelAnimationFrame(animationId);
     };
   }, []);
 
