@@ -31,6 +31,10 @@ export default function App() {
       ctx.fillStyle = '#A475A0';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Flip the context horizontally. The sprite is pointing left, but we want it to point right.
+      ctx.save();
+      ctx.scale(-1, 1);
+
       // Update sprite frame
       if (gameFrame % animationFramesBetweenSpriteFrame === 0) {
         frameX = (frameX + 1) % numFrames;
@@ -43,11 +47,14 @@ export default function App() {
         frameY * spriteHeight,
         spriteWidth,
         spriteHeight,
-        x,
+        -x - spriteWidth, // Adjust x position for flipped context
         y,
         spriteWidth,
         spriteHeight,
       );
+
+      // Restore the context to its original state before we flipped it.
+      ctx.restore();
 
       // Move sprite
       x += 2;
