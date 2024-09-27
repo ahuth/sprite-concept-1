@@ -120,6 +120,7 @@ export default function App() {
       <div className="flex">
         <button
           className={clsx(
+            'select-none', // Prevent text selection when holding on mobile
             'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
             direction === -1 && 'bg-gray-400',
           )}
@@ -136,6 +137,7 @@ export default function App() {
         />
         <button
           className={clsx(
+            'select-none', // Prevent text selection when holding on mobile
             'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
             direction === 1 && 'bg-gray-400',
           )}
