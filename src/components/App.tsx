@@ -126,8 +126,6 @@ export default function App() {
           )}
           onMouseDown={() => setDirection(-1)}
           onMouseUp={() => setDirection(0)}
-          onTouchStart={() => setDirection(-1)}
-          onTouchEnd={() => setDirection(0)}
         >
           ←
         </button>
@@ -143,8 +141,6 @@ export default function App() {
           )}
           onMouseDown={() => setDirection(1)}
           onMouseUp={() => setDirection(0)}
-          onTouchStart={() => setDirection(1)}
-          onTouchEnd={() => setDirection(0)}
         >
           →
         </button>
