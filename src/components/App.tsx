@@ -94,7 +94,7 @@ export default function App() {
       }
 
       gameFrame++;
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     }
 
     let animationId = -1;
