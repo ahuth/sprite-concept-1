@@ -38,14 +38,16 @@ export default function App() {
     const canvas = canvasRef.current!;
     const ctx = canvas.getContext('2d')!;
 
-    // Sprite properties
-    const spriteWidth = 87;
-    const spriteHeight = 64;
-    const numFrames = 6;
+    // Sprite properties. We use row 1 of the sprite sheet when not moving, and row 2 when moving.
+    // For some reason the sprites on different rows have different dimensions, which is annoying
+    // (and why there are all the conditionals here).
+    const spriteWidth = direction ? 87 : 80;
+    const spriteHeight = direction ? 64 : 60;
+    const numFrames = direction ? 6 : 1;
     const animationFramesBetweenSpriteFrame = 10;
     const y = canvas.height - spriteHeight;
-    const frameY = 1;
-    let frameX = 0;
+    const frameY = direction ? 1 : 0;
+    let frameX = direction ? 0 : 1;
     let gameFrame = 0;
 
     // Load sprite image
