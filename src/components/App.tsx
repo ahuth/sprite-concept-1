@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import {useEffect, useRef, useState} from 'react';
+import {useDebounce} from 'use-debounce';
 import spriteSheetUrl from '../catspritesx4.gif';
 
 export default function App() {
@@ -9,13 +10,29 @@ export default function App() {
   // Store the x position in a ref so we don't lose it when setting up and tearing down effects.
   const xRef = useRef(0);
 
+  const [setLeft] = useDebounce(
+    () => {
+      setDirection(-1);
+    },
+    500,
+    {leading: true},
+  );
+
+  const [setRight] = useDebounce(
+    () => {
+      setDirection(1);
+    },
+    500,
+    {leading: true},
+  );
+
   // Key handlers for direction.
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'ArrowLeft') {
-        setDirection(-1);
+        setLeft();
       } else if (event.key === 'ArrowRight') {
-        setDirection(1);
+        setRight();
       }
     }
 
@@ -124,7 +141,7 @@ export default function App() {
             'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
             direction === -1 && 'bg-gray-400',
           )}
-          onMouseDown={() => setDirection(-1)}
+          onMouseDown={() => setLeft()}
           onMouseUp={() => setDirection(0)}
         >
           ←
@@ -139,7 +156,7 @@ export default function App() {
             'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400',
             direction === 1 && 'bg-gray-400',
           )}
-          onMouseDown={() => setDirection(1)}
+          onMouseDown={() => setRight()}
           onMouseUp={() => setDirection(0)}
         >
           →
