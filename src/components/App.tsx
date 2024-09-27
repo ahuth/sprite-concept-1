@@ -28,6 +28,9 @@ export default function App() {
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      ctx.fillStyle = '#A475A0';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       // Update sprite frame
       if (gameFrame % animationFramesBetweenSpriteFrame === 0) {
         frameX = (frameX + 1) % numFrames;
